@@ -47,4 +47,13 @@ public class DisasterController {
             throw new NotFoundException("disaster record with the id: "+id+" not found");
     }
 
+    @GetMapping(path = "/one/{id}")
+    public Disaster getDisasterRecordById(@PathVariable int id){
+        Disaster record = service.getDisasterById(id);
+        if (record == null)
+            throw new NotFoundException("disaster record with the id: "+id+" not found");
+        else
+            return record;
+    }
+
 }
