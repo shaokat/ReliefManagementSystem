@@ -11,12 +11,13 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequestMapping(path = "areas")
 public class UnionController {
 
     @Autowired
     UnionParisadService unionParisadService;
 
-    @GetMapping(value = "/upazilla/{id}/uinion")
+    @GetMapping(value = "/upazilla/{id}/unions")
     @ResponseBody
     public List<UnionParisad> getAllUnion(@PathVariable Upazilla id) {
         List<UnionParisad> unionParisads = unionParisadService.getUnionparisadsByUpazilla(id);
