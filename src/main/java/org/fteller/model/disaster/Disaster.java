@@ -9,6 +9,8 @@ import net.minidev.json.annotate.JsonIgnore;
 import org.fteller.model.relief.ReliefRecords;
 
 import javax.persistence.*;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
 
@@ -26,8 +28,12 @@ public class Disaster {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter@Setter private int id;
 
+    @Size(min = 3)
     @Getter@Setter private String name;
+
     @Getter@Setter private DisasterType type;
+
+    @Past
     @Getter@Setter private Date dateOfOccurance;
     @Getter@Setter private String description;
 
