@@ -18,7 +18,7 @@ import java.util.Set;
 public class Organization {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private @Getter@Setter int id;
     private @Getter@Setter String name;
     private @Getter@Setter String description;
     private @Getter@Setter String  nameAcronym;
