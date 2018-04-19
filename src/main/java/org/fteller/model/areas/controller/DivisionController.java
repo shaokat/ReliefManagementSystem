@@ -1,5 +1,6 @@
 package org.fteller.model.areas.controller;
 
+import org.fteller.Exception.NotFoundException;
 import org.fteller.model.areas.Division;
 import org.fteller.model.areas.services.DivisionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,13 @@ public class DivisionController {
     public void saveDivison(@Valid @RequestBody Division division){
         divisionService.createDivison(division.getName());
     }
+    @DeleteMapping(path = "division/delete/{id}")
+    public void deleteDisasterRecord(@PathVariable int id){
+        Division deleted = divisionService.deleteDivision(id);
+        if (deleted == null)
+            throw new NotFoundException("Division record with the id: "+id+" not found");
+    }
+
 //    @GetMapping(path ="/division/{id}",produces = "application/json")
 //    @ResponseBody
 //    public Division getDivision(@PathVariable int id){

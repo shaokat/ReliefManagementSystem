@@ -28,7 +28,7 @@ public class Upazilla {
     @Size(min = 3, message = "Upazilla Name should have atleast 3 character")
     private @Getter@Setter String name;
 
-    @OneToMany(mappedBy = "upazilla",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "upazilla",orphanRemoval = true,cascade = CascadeType.ALL)
     @JsonIgnore
     private @Getter@Setter
     Set<UnionParisad> unionParisads;

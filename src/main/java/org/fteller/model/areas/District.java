@@ -28,12 +28,12 @@ public class District {
     private @Getter@Setter String name;
 
     //this is to map the one to many relationship between district and upazillas
-    @OneToMany(mappedBy = "district",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "district",orphanRemoval = true,cascade = CascadeType.ALL)
     @JsonIgnore
     private @Getter@Setter
     Set<Upazilla> upazillas;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "division_id")
     @JsonIgnore
     private @Getter@Setter Division division;
