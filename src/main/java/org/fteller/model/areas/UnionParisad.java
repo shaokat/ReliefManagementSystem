@@ -28,7 +28,7 @@ public class UnionParisad {
     @Size(min = 3, message = "UnionParisad Name should have atleast 3 character")
     private  @Getter@Setter String name;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "upazilla_id")
     @JsonIgnore
     private @Getter@Setter Upazilla upazilla;
