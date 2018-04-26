@@ -56,4 +56,9 @@ public class DisasterController {
             return record;
     }
 
+    @PatchMapping(path = "/update")
+    public void updateDisasterRecord(@RequestBody Disaster disasterRecord){
+        service.updateDisasterRecord(disasterRecord);
+    }
+
 }

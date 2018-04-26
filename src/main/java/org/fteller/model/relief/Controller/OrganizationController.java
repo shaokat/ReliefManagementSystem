@@ -14,15 +14,25 @@ import java.util.List;
 public class OrganizationController {
     @Autowired
     OrganizationService organizationService;
-    @GetMapping(value = "",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/all")
     @ResponseBody
-    public List<Organization> getAllOrganization (){
+    public List<Organization> getAllOrganizations (){
         return organizationService.getOrganization();
     }
 
 
-    @PostMapping(path = "/add",consumes = "application/json")
-    public void addOrgation(@RequestBody Organization organization){
+    @PostMapping(path = "/add")
+    public void addOrganization(@RequestBody Organization organization){
         organizationService.createOrganization(organization);
+    }
+
+    @PatchMapping(path = "/update")
+    public void updateOrganization(@RequestBody Organization organization){
+        organizationService.updateOrganization(organization);
+    }
+
+    @DeleteMapping(path = "/delete/{id}")
+    public void deleteOrganization(@PathVariable int id){
+        organizationService.deleteOrganization(id);
     }
 }

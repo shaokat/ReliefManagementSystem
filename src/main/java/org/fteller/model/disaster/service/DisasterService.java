@@ -35,4 +35,8 @@ public class DisasterService {
      repository.delete(record);
      return record;
     }
+
+    public void updateDisasterRecord(Disaster disasterRecord){
+        repository.save(disasterRecord);
+    }
 }
