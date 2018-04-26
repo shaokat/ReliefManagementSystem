@@ -48,5 +48,9 @@ public class UpazlillaController {
         }
 
     }
+    @PatchMapping(path = "/upazilla/update")
+    public void upadteUpazilla(@RequestBody Upazilla upazilla ){
+        upazillaService.upadateUpazilla(upazilla);
+    }
 
 }

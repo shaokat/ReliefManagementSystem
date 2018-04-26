@@ -9,6 +9,7 @@ import org.fteller.model.relief.ReliefRecords;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -28,31 +29,20 @@ public class UnionParisad {
     @Size(min = 3, message = "UnionParisad Name should have atleast 3 character")
     private  @Getter@Setter String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "upazilla_id")
     @JsonIgnore
     private @Getter@Setter Upazilla upazilla;
 
-    @OneToMany(mappedBy = "place",cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "place", orphanRemoval = true,cascade = CascadeType.ALL)
     @JsonIgnore
-    private @Getter@Setter
-    Set<ReliefRecords> reliefRecords;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UnionParisad that = (UnionParisad) o;
-
-        if (getId() != that.getId()) return false;
-        return getName() != null ? getName().equals(that.getName()) : that.getName() == null;
+    private @Getter
+    List<ReliefRecords> reliefRecords = new ArrayList<>();
+    public void setReliefRecords(List<ReliefRecords> reliefRecord){
+        if(reliefRecords!=null) {
+            this.reliefRecords.clear();
+            this.reliefRecords.addAll(reliefRecord);
+        }
     }
 
-    @Override
-    public int hashCode() {
-        int result = getId();
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        return result;
-    }
 }

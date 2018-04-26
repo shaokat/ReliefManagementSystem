@@ -47,4 +47,8 @@ public class DistrictController
         }
 
     }
+    @PatchMapping(path = "/district/update")
+    public void upadateDivision(@RequestBody District district ){
+        districtService.upadateDistrict(district);
+    }
 }

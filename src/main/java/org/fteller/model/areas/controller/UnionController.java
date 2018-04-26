@@ -40,4 +40,8 @@ public class UnionController {
             throw new NotFoundException("Upzilla for id: "+id+" not Found");
         }
     }
+    @PatchMapping(path = "/union/update")
+    public void upadateDivision(@RequestBody UnionParisad unionParisad ){
+        unionParisadService.updateUnion(unionParisad);
+    }
 }

@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,9 +26,16 @@ public class Organization {
     private @Getter@Setter String  nameAcronym;
     private @Getter@Setter OrganizationLevel orgLevel;
 
-    @OneToMany(mappedBy = "organization",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "organization", orphanRemoval = true,cascade = CascadeType.ALL)
     @JsonIgnore
-    private @Getter@Setter Set<ReliefRecords> reliefRecords;
+    private @Getter
+    List<ReliefRecords> reliefRecords = new ArrayList<>();
+    public void setReliefRecords(List<ReliefRecords> reliefRecord){
+        if(reliefRecords!=null) {
+            this.reliefRecords.clear();
+            this.reliefRecords.addAll(reliefRecord);
+        }
+    }
 
     public void addReliefRecords(@NonNull ReliefRecords... records){
         reliefRecords.addAll(Arrays.asList(records));

@@ -22,7 +22,7 @@ public class DivisionService {
         if(!exists) {
             Division division = new Division();
             division.setName(name);
-            division.setDistricts(new HashSet<>());
+            //division.setDistricts(new HashSet<>());
             saveDivision(division);
             return true;
         }else
@@ -44,6 +44,10 @@ public class DivisionService {
         Division division = divisionRepository.findOne(divisionId);
         divisionRepository.delete(division);
         return division;
+    }
+
+    public void updateDivisions(Division divisionRecord){
+        divisionRepository.save(divisionRecord);
     }
 
 }

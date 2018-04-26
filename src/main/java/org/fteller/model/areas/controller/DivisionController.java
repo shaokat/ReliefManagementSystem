@@ -25,7 +25,7 @@ public class DivisionController {
     public void saveDivison(@Valid @RequestBody Division division){
         divisionService.createDivison(division.getName());
     }
-    @DeleteMapping(path = "division/delete/{id}")
+    @DeleteMapping(path = "/division/delete/{id}")
     public void deleteDisasterRecord(@PathVariable int id){
         Division deleted = divisionService.deleteDivision(id);
         if (deleted == null)
@@ -42,4 +42,8 @@ public class DivisionController {
 //
 //    }
 
+    @PatchMapping(path = "/division/update")
+    public void upadateDivision(@RequestBody Division division ){
+        divisionService.updateDivisions(division);
+    }
 }
