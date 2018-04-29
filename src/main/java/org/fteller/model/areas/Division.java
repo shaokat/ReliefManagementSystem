@@ -6,13 +6,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.fteller.model.areas.District;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Abdullah Al Amin on 9/18/2017.
@@ -31,10 +29,17 @@ public class Division {
     @Size(min = 3, message = "Division Name should have atleast 3 character")
     private @Getter@Setter String name;
 
-    @OneToMany(mappedBy = "division",orphanRemoval = true,cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "division",orphanRemoval = true,cascade = CascadeType.ALL)
     @JsonIgnore
-    private @Getter@Setter
-    Set<District> districts;
+    private @Getter
+    List<District> districts = new ArrayList<>();
+
+    public void setDistricts(List<District> district){
+        if (districts != null) {
+            this.districts.clear();
+            this.districts.addAll(district);
+        }
+    }
 
     public void addDistricts(@NonNull District... districts){
         this.districts.addAll(Arrays.asList(districts));

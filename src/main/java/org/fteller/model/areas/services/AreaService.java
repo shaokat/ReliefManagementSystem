@@ -61,7 +61,7 @@ public class AreaService {
         if(!exists) {
             Upazilla upazilla = new Upazilla();
             upazilla.setName(name);
-            upazilla.setUnionParisads(new HashSet<>());
+            //upazilla.setUnionParisads(new HashSet<>());
             upazilla.setDistrict(district);
             saveUpazilla(upazilla);
             return true;
@@ -84,7 +84,7 @@ public class AreaService {
         if(!exists) {
             District district = new District();
             district.setName(name);
-            district.setUpazillas(new HashSet<>());
+           // district.setUpazillas(new HashSet<>());
             district.setDivision(division);
             saveDistrict(district);
             return true;
@@ -107,7 +107,7 @@ public class AreaService {
         if(!exists) {
             Division division = new Division();
             division.setName(name);
-            division.setDistricts(new HashSet<>());
+            //division.setDistricts(new HashSet<>());
             saveDivision(division);
             return true;
         }else

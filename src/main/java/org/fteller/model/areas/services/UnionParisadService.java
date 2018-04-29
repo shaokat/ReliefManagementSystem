@@ -48,4 +48,7 @@ public class UnionParisadService {
         Upazilla upazilla = upazillaRepository.findOne(id);
        return upazilla;
     }
+    public void updateUnion(UnionParisad unionParisad){
+        unionRepository.save(unionParisad);
+    }
 }

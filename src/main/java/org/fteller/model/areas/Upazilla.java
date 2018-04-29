@@ -8,6 +8,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -28,12 +29,17 @@ public class Upazilla {
     @Size(min = 3, message = "Upazilla Name should have atleast 3 character")
     private @Getter@Setter String name;
 
-    @OneToMany(mappedBy = "upazilla",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "upazilla",orphanRemoval = true,cascade = CascadeType.ALL)
     @JsonIgnore
-    private @Getter@Setter
-    Set<UnionParisad> unionParisads;
-
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private @Getter
+    List<UnionParisad> unionParisads  = new ArrayList<>();
+    public void setUnionParisads(List<UnionParisad> unionParisad){
+        if(unionParisads != null) {
+            this.unionParisads.clear();
+            this.unionParisads.addAll(unionParisad);
+        }
+    }
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "district_id")
     @JsonIgnore
     private @Getter@Setter District district;
@@ -42,21 +48,4 @@ public class Upazilla {
         unionParisads.addAll(Arrays.asList(unionParisad));
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Upazilla upazilla = (Upazilla) o;
-
-        if (getId() != upazilla.getId()) return false;
-        return getName() != null ? getName().equals(upazilla.getName()) : upazilla.getName() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId();
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        return result;
-    }
 }

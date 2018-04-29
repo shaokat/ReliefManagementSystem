@@ -26,7 +26,7 @@ public class DistrictService {
         if(!exists) {
             District district = new District();
             district.setName(name);
-            district.setUpazillas(new HashSet<>());
+            //district.setUpazillas(new HashSet<>());
             district.setDivision(division);
             saveDistrict(district);
             return true;
@@ -53,5 +53,9 @@ public class DistrictService {
     public District getDistrictById(int id) {
         District district = districtRepository.findOne(id);
         return  district;
+    }
+
+    public void upadateDistrict(District district){
+        districtRepository.save(district);
     }
 }

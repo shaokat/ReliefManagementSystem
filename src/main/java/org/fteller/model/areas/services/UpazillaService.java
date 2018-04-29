@@ -23,7 +23,7 @@ public class UpazillaService {
         if(!exists) {
             Upazilla upazilla = new Upazilla();
             upazilla.setName(name);
-            upazilla.setUnionParisads(new HashSet<>());
+            //upazilla.setUnionParisads(new HashSet<>());
             upazilla.setDistrict(district);
             saveUpazilla(upazilla);
             return true;
@@ -43,5 +43,8 @@ public class UpazillaService {
         List<Upazilla> upazillas = upazillaRepository.findByDistrict(id);
             return upazillas;
 
+    }
+    public void upadateUpazilla(Upazilla upazilla){
+        upazillaRepository.save(upazilla);
     }
 }

@@ -29,12 +29,12 @@ public class ReliefRecords {
     private @Getter@Setter int id;
     private  @Setter LocalDateTime timestamp ;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "union_parisad_id")
     @JsonIgnore
     private @Getter@Setter UnionParisad place;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 
     @JoinColumn(name = "organization_id")
     private @Getter@Setter Organization organization;
@@ -53,21 +53,4 @@ public class ReliefRecords {
        return timestamp.toLocalDate();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ReliefRecords that = (ReliefRecords) o;
-
-        if (getId() != that.getId()) return false;
-        return timestamp != null ? timestamp.equals(that.timestamp) : that.timestamp == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId();
-        result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
-        return result;
-    }
 }

@@ -40,13 +40,13 @@ public class ReliefApplication implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
         initalizeDBwithArea();
-//        initializeDBWithrelieftype();
+        initializeDBWithrelieftype();
 //        checkRelief();
         Organization redCrescent = new Organization();
         redCrescent.setName("International Federation of Red Crescent");
         redCrescent.setNameAcronym("IFRC");
         redCrescent.setOrgLevel(OrganizationLevel.INTERNATIONAL);
-        redCrescent.setReliefRecords(new HashSet<ReliefRecords>());
+        redCrescent.setReliefRecords(new ArrayList<>());
 
         ReliefType money = new MoneyRelief(30000,60);
         ReliefRecords record = new ReliefRecords();
@@ -56,7 +56,10 @@ public class ReliefApplication implements CommandLineRunner {
         record.setPlace(unionRepository.findOne(1));
 
         redCrescent.addReliefRecords(record);
-        organizationRepository.save(redCrescent);
+        //UnionParisad unionParisad = unionRepository.getOne(1);
+       // unionParisad.getReliefRecords().add(record);
+        //unionRepository.save(unionParisad);
+        //organizationRepository.save(redCrescent);
 
 
     }
@@ -85,19 +88,21 @@ public class ReliefApplication implements CommandLineRunner {
         //create upazilla
         Upazilla banaripara = new Upazilla();
         banaripara.setName("banaripara");
-        banaripara.setUnionParisads(new HashSet<>());
+        banaripara.setUnionParisads(new ArrayList<>());
 
         //create district
         District barisal =  new District();
         barisal.setName("barisal sadar");
-        barisal.setUpazillas(new HashSet<>());
+        barisal.setUpazillas(new ArrayList<>());
 
         //create division
         Division barisalD = new Division();
         barisalD.setName("barisal");
-        barisalD.setDistricts(new HashSet<>());
+        barisalD.setDistricts(new ArrayList<>());
+        barisalD.addDistricts(barisal);
 
         barisal.setDivision(barisalD);
+        barisal.setUpazillas(new ArrayList<>());
         barisal.addUpazillas(banaripara);
 
         chakar.setName("chakhar");
@@ -109,10 +114,10 @@ public class ReliefApplication implements CommandLineRunner {
 
 
         banaripara.addUnions(chakar,laksmibazar);
-
+        upazillaRepository.save(banaripara);
         unionRepository.save(chakar);
         unionRepository.save(laksmibazar);
-      //  upazillaRepository.save(banaripara);
+
     }
 
 

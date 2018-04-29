@@ -1,7 +1,6 @@
 package org.fteller.model.areas.services;
 
-import javassist.NotFoundException;
-import org.fteller.model.areas.District;
+
 import org.fteller.model.areas.Division;
 import org.fteller.model.areas.repositories.DivisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class DivisionService {
         if(!exists) {
             Division division = new Division();
             division.setName(name);
-            division.setDistricts(new HashSet<>());
+            //division.setDistricts(new HashSet<>());
             saveDivision(division);
             return true;
         }else
@@ -40,6 +39,16 @@ public class DivisionService {
         Optional<Division> divisionOptional = divisionRepository.findById(id);
             return divisionOptional.get();
         }
+
+    public Division deleteDivision(int divisionId){
+        Division division = divisionRepository.findOne(divisionId);
+        divisionRepository.delete(division);
+        return division;
+    }
+
+    public void updateDivisions(Division divisionRecord){
+        divisionRepository.save(divisionRecord);
+    }
 
 }
 
