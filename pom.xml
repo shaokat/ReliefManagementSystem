@@ -68,7 +68,12 @@
             <artifactId>json-smart</artifactId>
             <version>2.2.1</version>
         </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4-1206-jdbc42</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
