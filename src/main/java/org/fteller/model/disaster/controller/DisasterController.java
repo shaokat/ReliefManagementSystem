@@ -2,6 +2,7 @@ package org.fteller.model.disaster.controller;
 
 import org.fteller.Exception.NotFoundException;
 import org.fteller.model.disaster.Disaster;
+import org.fteller.model.disaster.DisasterType;
 import org.fteller.model.disaster.service.DisasterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -59,6 +61,11 @@ public class DisasterController {
     @PatchMapping(path = "/update")
     public void updateDisasterRecord(@RequestBody Disaster disasterRecord){
         service.updateDisasterRecord(disasterRecord);
+    }
+
+    @GetMapping("/types")
+    public List<DisasterType> getDisasterTypes(){
+        return Arrays.asList(DisasterType.values());
     }
 
 }
