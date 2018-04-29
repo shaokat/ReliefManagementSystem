@@ -50,5 +50,8 @@ public class DivisionService {
         divisionRepository.save(divisionRecord);
     }
 
+    public Division getDivision(int id) {
+       return divisionRepository.findOne(id);
+    }
 }
 

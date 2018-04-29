@@ -21,12 +21,16 @@ public class DivisionController {
         return divisionService.getDivisions();
     }
 
+    @GetMapping(path="/division/{id}")
+    public Division getDivision(@PathVariable int id){
+        return divisionService.getDivision(id);
+    }
     @PostMapping(path="/division")
     public void saveDivison(@Valid @RequestBody Division division){
         divisionService.createDivison(division.getName());
     }
     @DeleteMapping(path = "/division/delete/{id}")
-    public void deleteDisasterRecord(@PathVariable int id){
+    public void deleteDivisionRecord(@PathVariable int id){
         Division deleted = divisionService.deleteDivision(id);
         if (deleted == null)
             throw new NotFoundException("Division record with the id: "+id+" not found");

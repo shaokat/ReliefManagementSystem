@@ -47,4 +47,9 @@ public class UpazillaService {
     public void upadateUpazilla(Upazilla upazilla){
         upazillaRepository.save(upazilla);
     }
+    public Upazilla deleteUpazilla(int upazillaId){
+        Upazilla upazilla = upazillaRepository.findOne(upazillaId);
+        upazillaRepository.delete(upazilla);
+        return upazilla;
+    }
 }

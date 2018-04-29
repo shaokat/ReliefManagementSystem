@@ -1,6 +1,7 @@
 package org.fteller.model.areas.controller;
 import org.fteller.Exception.NotFoundException;
 import org.fteller.model.areas.District;
+import org.fteller.model.areas.Division;
 import org.fteller.model.areas.Upazilla;
 import org.fteller.model.areas.services.DistrictService;
 import org.fteller.model.areas.services.UpazillaService;
@@ -51,6 +52,13 @@ public class UpazlillaController {
     @PatchMapping(path = "/upazilla/update")
     public void upadteUpazilla(@RequestBody Upazilla upazilla ){
         upazillaService.upadateUpazilla(upazilla);
+    }
+
+    @DeleteMapping(path = "/upazilla/delete/{id}")
+    public void deleteUpazillaRecord(@PathVariable int id){
+        Upazilla deleted = upazillaService.deleteUpazilla(id);
+        if (deleted == null)
+            throw new NotFoundException("Upazilla record with the id: "+id+" not found");
     }
 
 }

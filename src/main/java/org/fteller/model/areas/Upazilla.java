@@ -29,7 +29,7 @@ public class Upazilla {
     @Size(min = 3, message = "Upazilla Name should have atleast 3 character")
     private @Getter@Setter String name;
 
-    @OneToMany(mappedBy = "upazilla",orphanRemoval = true,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "upazilla",cascade = CascadeType.ALL)
     @JsonIgnore
     private @Getter
     List<UnionParisad> unionParisads  = new ArrayList<>();
@@ -39,7 +39,7 @@ public class Upazilla {
             this.unionParisads.addAll(unionParisad);
         }
     }
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = District.class)
     @JoinColumn(name = "district_id")
     @JsonIgnore
     private @Getter@Setter District district;

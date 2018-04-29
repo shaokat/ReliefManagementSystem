@@ -44,4 +44,10 @@ public class UnionController {
     public void upadateDivision(@RequestBody UnionParisad unionParisad ){
         unionParisadService.updateUnion(unionParisad);
     }
+    @DeleteMapping(path = "/union/delete/{id}")
+    public void deleteUnionRecord(@PathVariable int id){
+        UnionParisad deleted = unionParisadService.deleteUnion(id);
+        if (deleted == null)
+            throw new NotFoundException("Union record with the id: "+id+" not found");
+    }
 }

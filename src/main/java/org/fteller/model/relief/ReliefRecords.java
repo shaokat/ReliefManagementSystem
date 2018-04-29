@@ -29,12 +29,12 @@ public class ReliefRecords {
     private @Getter@Setter int id;
     private  @Setter LocalDateTime timestamp ;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = UnionParisad.class)
     @JoinColumn(name = "union_parisad_id")
     @JsonIgnore
     private @Getter@Setter UnionParisad place;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = Organization.class)
 
     @JoinColumn(name = "organization_id")
     private @Getter@Setter Organization organization;

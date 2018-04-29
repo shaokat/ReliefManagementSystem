@@ -58,4 +58,11 @@ public class DistrictService {
     public void upadateDistrict(District district){
         districtRepository.save(district);
     }
+    public District deleteDistrict(int divisionId){
+        District district = districtRepository.findOne(divisionId);
+        districtRepository.delete(district);
+        return district;
+    }
+
+
 }

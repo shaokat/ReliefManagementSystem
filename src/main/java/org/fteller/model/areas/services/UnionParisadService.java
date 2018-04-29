@@ -51,4 +51,9 @@ public class UnionParisadService {
     public void updateUnion(UnionParisad unionParisad){
         unionRepository.save(unionParisad);
     }
+    public UnionParisad deleteUnion(int divisionId){
+        UnionParisad unionParisad = unionRepository.findOne(divisionId);
+        unionRepository.delete(unionParisad);
+        return unionParisad;
+    }
 }

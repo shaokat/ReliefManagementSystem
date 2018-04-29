@@ -26,7 +26,7 @@ public class Organization {
     private @Getter@Setter String  nameAcronym;
     private @Getter@Setter OrganizationLevel orgLevel;
 
-    @OneToMany(mappedBy = "organization", orphanRemoval = true,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "organization",cascade = CascadeType.ALL)
     @JsonIgnore
     private @Getter
     List<ReliefRecords> reliefRecords = new ArrayList<>();

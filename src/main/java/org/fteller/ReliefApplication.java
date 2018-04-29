@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,7 +24,7 @@ import java.util.HashSet;
 
 @SpringBootApplication
 public class ReliefApplication implements CommandLineRunner {
-
+    private static final String[] REQUEST_METHOD_SUPPORTED = { "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD" };
 
     @Autowired
     private UnionRepository unionRepository;
@@ -36,26 +40,35 @@ public class ReliefApplication implements CommandLineRunner {
 
         SpringApplication.run(ReliefApplication.class, args);
 	}
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/areas/**").allowedOrigins("*").allowedHeaders("*").allowedMethods(REQUEST_METHOD_SUPPORTED);
+            }
+        };
+    }
 
     @Override
     public void run(String... strings) throws Exception {
-        initalizeDBwithArea();
-        initializeDBWithrelieftype();
-//        checkRelief();
-        Organization redCrescent = new Organization();
-        redCrescent.setName("International Federation of Red Crescent");
-        redCrescent.setNameAcronym("IFRC");
-        redCrescent.setOrgLevel(OrganizationLevel.INTERNATIONAL);
-        redCrescent.setReliefRecords(new ArrayList<>());
-
-        ReliefType money = new MoneyRelief(30000,60);
-        ReliefRecords record = new ReliefRecords();
-        record.setTimestamp(LocalDateTime.now());
-        record.setOrganization(redCrescent);
-        record.setType(money);
-        record.setPlace(unionRepository.findOne(1));
-
-        redCrescent.addReliefRecords(record);
+//        initalizeDBwithArea();
+//        initializeDBWithrelieftype();
+////        checkRelief();
+//        Organization redCrescent = new Organization();
+//        redCrescent.setName("International Federation of Red Crescent");
+//        redCrescent.setNameAcronym("IFRC");
+//        redCrescent.setOrgLevel(OrganizationLevel.INTERNATIONAL);
+//        redCrescent.setReliefRecords(new ArrayList<>());
+//
+//        ReliefType money = new MoneyRelief(30000,60);
+//        ReliefRecords record = new ReliefRecords();
+//        record.setTimestamp(LocalDateTime.now());
+//        record.setOrganization(redCrescent);
+//        record.setType(money);
+//        record.setPlace(unionRepository.findOne(1));
+//
+//        redCrescent.addReliefRecords(record);
         //UnionParisad unionParisad = unionRepository.getOne(1);
        // unionParisad.getReliefRecords().add(record);
         //unionRepository.save(unionParisad);

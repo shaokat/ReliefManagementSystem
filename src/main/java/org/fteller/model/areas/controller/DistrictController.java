@@ -51,4 +51,11 @@ public class DistrictController
     public void upadateDivision(@RequestBody District district ){
         districtService.upadateDistrict(district);
     }
+
+    @DeleteMapping(path = "/district/delete/{id}")
+    public void deleteDistrictRecord(@PathVariable int id){
+        District deleted = districtService.deleteDistrict(id);
+        if (deleted == null)
+            throw new NotFoundException("District record with the id: "+id+" not found");
+    }
 }

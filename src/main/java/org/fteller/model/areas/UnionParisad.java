@@ -29,12 +29,12 @@ public class UnionParisad {
     @Size(min = 3, message = "UnionParisad Name should have atleast 3 character")
     private  @Getter@Setter String name;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = Upazilla.class)
     @JoinColumn(name = "upazilla_id")
     @JsonIgnore
     private @Getter@Setter Upazilla upazilla;
 
-    @OneToMany(mappedBy = "place", orphanRemoval = true,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "place",cascade = CascadeType.ALL)
     @JsonIgnore
     private @Getter
     List<ReliefRecords> reliefRecords = new ArrayList<>();

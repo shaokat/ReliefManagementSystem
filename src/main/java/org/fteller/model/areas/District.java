@@ -25,7 +25,7 @@ public class District {
     private @Getter@Setter String name;
 
     //this is to map the one to many relationship between district and upazillas
-    @OneToMany(mappedBy = "district",orphanRemoval = true,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "district",cascade = CascadeType.ALL)
     @JsonIgnore
     private @Getter
     List<Upazilla> upazillas = new ArrayList<>();
@@ -36,7 +36,7 @@ public class District {
             this.upazillas.addAll(upazilla);
         }
     }
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = Division.class)
     @JoinColumn(name = "division_id")
     @JsonIgnore
     private @Getter@Setter Division division;

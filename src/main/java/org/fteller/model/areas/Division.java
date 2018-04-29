@@ -29,7 +29,7 @@ public class Division {
     @Size(min = 3, message = "Division Name should have atleast 3 character")
     private @Getter@Setter String name;
 
-    @OneToMany(mappedBy = "division",orphanRemoval = true,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "division",cascade = CascadeType.ALL)
     @JsonIgnore
     private @Getter
     List<District> districts = new ArrayList<>();
