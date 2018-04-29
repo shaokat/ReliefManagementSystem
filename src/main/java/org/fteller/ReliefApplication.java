@@ -52,7 +52,7 @@ public class ReliefApplication implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-//        initalizeDBwithArea();
+ //       initalizeDBwithArea();
 //        initializeDBWithrelieftype();
 ////        checkRelief();
 //        Organization redCrescent = new Organization();
@@ -69,10 +69,10 @@ public class ReliefApplication implements CommandLineRunner {
 //        record.setPlace(unionRepository.findOne(1));
 //
 //        redCrescent.addReliefRecords(record);
-        //UnionParisad unionParisad = unionRepository.getOne(1);
-       // unionParisad.getReliefRecords().add(record);
-        //unionRepository.save(unionParisad);
-        //organizationRepository.save(redCrescent);
+//        UnionParisad unionParisad = unionRepository.getOne(1);
+////        unionParisad.getReliefRecords().add(record);
+//        unionRepository.save(unionParisad);
+//        organizationRepository.save(redCrescent);
 
 
     }
