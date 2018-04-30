@@ -11,7 +11,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,9 +29,13 @@ public class DisasterController {
     @Autowired
     private DisasterService service;
 
-    @PostMapping(path = "/save")
-    public ResponseEntity<Object> createDisasterRecord(@Valid @RequestBody Disaster disasterRecord){
+    @PostMapping(path = "/save/{time}")
+    public ResponseEntity<Object> createDisasterRecord(
+            @Valid @RequestBody Disaster disasterRecord,
+            @PathVariable String time){
+
         if(disasterRecord != null){
+            disasterRecord.setDateOfOccurance(makeDate(time));
             Disaster record = service.saveDisasterRecord(disasterRecord);
         }
         URI location = ServletUriComponentsBuilder
@@ -35,6 +43,18 @@ public class DisasterController {
                 .path("/{id}")
                 .buildAndExpand(disasterRecord.getId()).toUri();
         return  ResponseEntity.created(location).build();
+    }
+
+    private Date makeDate(@PathVariable String time)  {
+        String format = "yyyy-MM-dd";
+        DateFormat parser = new SimpleDateFormat(format);
+        try {
+            Date date = parser.parse(time);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @GetMapping(path = "/all")
