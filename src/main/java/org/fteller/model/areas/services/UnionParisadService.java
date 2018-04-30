@@ -39,6 +39,10 @@ public class UnionParisadService {
         return unionRepository.findAll();
     }
 
+    public UnionParisad getUnionParisadByID(int id) {
+        return unionRepository.findOne(id);
+    }
+
     public List<UnionParisad> getUnionparisadsByUpazilla(Upazilla id)  {
 
         List<UnionParisad>  unionParisads =  unionRepository.findByUpazilla(id);

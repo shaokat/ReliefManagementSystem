@@ -38,7 +38,7 @@ public class District {
     }
     @ManyToOne(targetEntity = Division.class)
     @JoinColumn(name = "division_id")
-    @JsonIgnore
+
     private @Getter@Setter Division division;
 
 
