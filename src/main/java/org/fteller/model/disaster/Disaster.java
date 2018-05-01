@@ -11,6 +11,7 @@ import org.fteller.model.relief.ReliefRecords;
 import javax.persistence.*;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -33,8 +34,7 @@ public class Disaster {
 
     @Getter@Setter private DisasterType type;
 
-    @Past
-    @Getter@Setter private Date dateOfOccurance;
+    @Getter@Setter private LocalDate dateOfOccurance;
     @Getter@Setter private String description;
 
 

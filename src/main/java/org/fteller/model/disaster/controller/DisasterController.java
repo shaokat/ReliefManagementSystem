@@ -11,11 +11,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,16 +43,11 @@ public class DisasterController {
         return  ResponseEntity.created(location).build();
     }
 
-    private Date makeDate(@PathVariable String time)  {
-        String format = "yyyy-MM-dd";
-        DateFormat parser = new SimpleDateFormat(format);
-        try {
-            Date date = parser.parse(time);
+    private LocalDate makeDate(@PathVariable String time)  {
+            LocalDate date = LocalDate.parse(time);
+            System.out.println(date.toString());
             return date;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+
     }
 
     @GetMapping(path = "/all")
@@ -78,8 +71,11 @@ public class DisasterController {
             return record;
     }
 
-    @PatchMapping(path = "/update")
-    public void updateDisasterRecord(@RequestBody Disaster disasterRecord){
+    @PatchMapping(path = "/update/{time}")
+    public void updateDisasterRecord(@RequestBody Disaster disasterRecord, @PathVariable String time){
+        if(!disasterRecord.getDateOfOccurance().toString().equals(time)){
+            disasterRecord.setDateOfOccurance(makeDate(time));
+        }
         service.updateDisasterRecord(disasterRecord);
     }
 
@@ -87,5 +83,6 @@ public class DisasterController {
     public List<DisasterType> getDisasterTypes(){
         return Arrays.asList(DisasterType.values());
     }
+
 
 }
