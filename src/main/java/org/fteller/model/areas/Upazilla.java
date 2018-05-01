@@ -41,7 +41,6 @@ public class Upazilla {
     }
     @ManyToOne(targetEntity = District.class)
     @JoinColumn(name = "district_id")
-    @JsonIgnore
     private @Getter@Setter District district;
 
     public void addUnions(@NonNull UnionParisad... unionParisad){
