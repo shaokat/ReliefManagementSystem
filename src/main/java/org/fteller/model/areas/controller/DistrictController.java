@@ -59,7 +59,7 @@ public class DistrictController
         }
 
     }
-    @PatchMapping(path = "division/{id}/district/update")
+    @PatchMapping(path = "/division/{id}/district/update")
     public void upadateDivision(@RequestBody District district,@PathVariable int id ){
         Division division = divisionService.getDivision(id);
         if(division != null) {

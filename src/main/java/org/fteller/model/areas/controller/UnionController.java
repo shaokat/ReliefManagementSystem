@@ -53,7 +53,7 @@ public class UnionController {
             return unionParisad;
         }
     }
-    @PatchMapping(path = "upazilla/{id}/union/update")
+    @PatchMapping(path = "/upazilla/{id}/union/update")
     public void upadateDivision(@RequestBody UnionParisad unionParisad,@PathVariable int id ){
         Upazilla upazilla = upazillaService.getUpazillaById(id);
         if(upazilla != null) {

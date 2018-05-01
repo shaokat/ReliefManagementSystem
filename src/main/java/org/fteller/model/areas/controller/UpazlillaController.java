@@ -59,7 +59,7 @@ public class UpazlillaController {
             return upazilla;
         }
     }
-    @PatchMapping(path = "district/{id}/upazilla/update")
+    @PatchMapping(path = "/district/{id}/upazilla/update")
     public void upadateDivision(@RequestBody Upazilla upazilla,@PathVariable int id ){
         District district = districtService.getDistrictById(id);
         if(district != null) {
