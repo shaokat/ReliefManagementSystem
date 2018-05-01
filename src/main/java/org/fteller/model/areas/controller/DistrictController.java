@@ -59,9 +59,17 @@ public class DistrictController
         }
 
     }
-    @PatchMapping(path = "/district/update")
-    public void upadateDivision(@RequestBody District district ){
-        districtService.upadateDistrict(district);
+    @PatchMapping(path = "division/{id}/district/update")
+    public void upadateDivision(@RequestBody District district,@PathVariable int id ){
+        Division division = divisionService.getDivision(id);
+        if(division != null) {
+            district.setDivision(division);
+            districtService.upadateDistrict(district);
+        }
+        else {
+            throw new NotFoundException(" Division for  id: "+id+" Not Found");
+
+        }
     }
 
     @DeleteMapping(path = "/district/delete/{id}")

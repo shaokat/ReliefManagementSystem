@@ -59,9 +59,17 @@ public class UpazlillaController {
             return upazilla;
         }
     }
-    @PatchMapping(path = "/upazilla/update")
-    public void upadteUpazilla(@RequestBody Upazilla upazilla ){
-        upazillaService.upadateUpazilla(upazilla);
+    @PatchMapping(path = "district/{id}/upazilla/update")
+    public void upadateDivision(@RequestBody Upazilla upazilla,@PathVariable int id ){
+        District district = districtService.getDistrictById(id);
+        if(district != null) {
+            upazilla.setDistrict(district);
+            upazillaService.upadateUpazilla(upazilla);
+        }
+        else {
+            throw new NotFoundException(" District for  id: "+id+" Not Found");
+
+        }
     }
 
     @DeleteMapping(path = "/upazilla/delete/{id}")
