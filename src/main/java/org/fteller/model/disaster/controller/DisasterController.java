@@ -11,6 +11,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,9 +27,13 @@ public class DisasterController {
     @Autowired
     private DisasterService service;
 
-    @PostMapping(path = "/save")
-    public ResponseEntity<Object> createDisasterRecord(@Valid @RequestBody Disaster disasterRecord){
+    @PostMapping(path = "/save/{time}")
+    public ResponseEntity<Object> createDisasterRecord(
+            @Valid @RequestBody Disaster disasterRecord,
+            @PathVariable String time){
+
         if(disasterRecord != null){
+            disasterRecord.setDateOfOccurance(makeDate(time));
             Disaster record = service.saveDisasterRecord(disasterRecord);
         }
         URI location = ServletUriComponentsBuilder
@@ -35,6 +41,13 @@ public class DisasterController {
                 .path("/{id}")
                 .buildAndExpand(disasterRecord.getId()).toUri();
         return  ResponseEntity.created(location).build();
+    }
+
+    private LocalDate makeDate(@PathVariable String time)  {
+            LocalDate date = LocalDate.parse(time);
+            System.out.println(date.toString());
+            return date;
+
     }
 
     @GetMapping(path = "/all")
@@ -58,8 +71,11 @@ public class DisasterController {
             return record;
     }
 
-    @PatchMapping(path = "/update")
-    public void updateDisasterRecord(@RequestBody Disaster disasterRecord){
+    @PatchMapping(path = "/update/{time}")
+    public void updateDisasterRecord(@RequestBody Disaster disasterRecord, @PathVariable String time){
+        if(!disasterRecord.getDateOfOccurance().toString().equals(time)){
+            disasterRecord.setDateOfOccurance(makeDate(time));
+        }
         service.updateDisasterRecord(disasterRecord);
     }
 
@@ -67,5 +83,6 @@ public class DisasterController {
     public List<DisasterType> getDisasterTypes(){
         return Arrays.asList(DisasterType.values());
     }
+
 
 }
