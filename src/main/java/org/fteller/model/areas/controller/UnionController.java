@@ -40,6 +40,16 @@ public class UnionController {
             throw new NotFoundException("Upzilla for id: "+id+" not Found");
         }
     }
+    @GetMapping(path = "/union/{id}")
+    public UnionParisad getUpazilla(@PathVariable int id){
+        UnionParisad unionParisad = unionParisadService.getUnionParisadByID(id);
+        if(unionParisad == null){
+            throw new NotFoundException("Upazilla record with the id: "+id+" not found");
+        }
+        else {
+            return unionParisad;
+        }
+    }
     @PatchMapping(path = "/union/update")
     public void upadateDivision(@RequestBody UnionParisad unionParisad ){
         unionParisadService.updateUnion(unionParisad);

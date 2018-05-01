@@ -33,6 +33,18 @@ public class DistrictController
             throw new NotFoundException("No District Available for Division id: "+id);
         }
     }
+    @GetMapping(path = "/district/{id}")
+    public District getDistrict(@PathVariable int id){
+        District district =  districtService.getDistrictById(id);
+        if(district == null){
+            throw new NotFoundException("District record with the id: "+id+" not found");
+        }
+        else {
+            Division division = district.getDivision();
+            district.setDivision(division);
+            return district;
+        }
+    }
 
     @PostMapping(path = "/division/{id}/district")
     public void createDistrict(@Valid @PathVariable int id, @RequestBody District district) throws NotFoundException {

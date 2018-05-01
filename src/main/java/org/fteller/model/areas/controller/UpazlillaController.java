@@ -49,6 +49,16 @@ public class UpazlillaController {
         }
 
     }
+    @GetMapping(path = "/upazilla/{id}")
+    public Upazilla getUpazilla(@PathVariable int id){
+        Upazilla upazilla = upazillaService.getUpazillaById(id);
+        if(upazilla == null){
+            throw new NotFoundException("Upazilla record with the id: "+id+" not found");
+        }
+        else {
+            return upazilla;
+        }
+    }
     @PatchMapping(path = "/upazilla/update")
     public void upadteUpazilla(@RequestBody Upazilla upazilla ){
         upazillaService.upadateUpazilla(upazilla);
