@@ -33,6 +33,22 @@ public class DistrictController
             throw new NotFoundException("No District Available for Division id: "+id);
         }
     }
+    @GetMapping(path="/districts")
+    public List<District> getDistricts(){
+        return districtService.getDistricts();
+    }
+    @GetMapping(path = "/district/{id}")
+    public District getDistrict(@PathVariable int id){
+        District district =  districtService.getDistrictById(id);
+        if(district == null){
+            throw new NotFoundException("District record with the id: "+id+" not found");
+        }
+        else {
+            Division division = district.getDivision();
+            district.setDivision(division);
+            return district;
+        }
+    }
 
     @PostMapping(path = "/division/{id}/district")
     public void createDistrict(@Valid @PathVariable int id, @RequestBody District district) throws NotFoundException {
@@ -47,9 +63,17 @@ public class DistrictController
         }
 
     }
-    @PatchMapping(path = "/district/update")
-    public void upadateDivision(@RequestBody District district ){
-        districtService.upadateDistrict(district);
+    @PatchMapping(path = "/division/{id}/district/update")
+    public void upadateDivision(@RequestBody District district,@PathVariable int id ){
+        Division division = divisionService.getDivision(id);
+        if(division != null) {
+            district.setDivision(division);
+            districtService.upadateDistrict(district);
+        }
+        else {
+            throw new NotFoundException(" Division for  id: "+id+" Not Found");
+
+        }
     }
 
     @DeleteMapping(path = "/district/delete/{id}")

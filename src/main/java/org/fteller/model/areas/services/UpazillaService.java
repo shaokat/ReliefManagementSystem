@@ -44,6 +44,10 @@ public class UpazillaService {
             return upazillas;
 
     }
+    public Upazilla getUpazillaById(int id){
+        return upazillaRepository.findOne(id);
+    }
+
     public void upadateUpazilla(Upazilla upazilla){
         upazillaRepository.save(upazilla);
     }
