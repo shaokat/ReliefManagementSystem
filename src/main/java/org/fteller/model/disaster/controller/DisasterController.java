@@ -73,9 +73,8 @@ public class DisasterController {
 
     @PatchMapping(path = "/update/{time}")
     public void updateDisasterRecord(@RequestBody Disaster disasterRecord, @PathVariable String time){
-        if(!disasterRecord.getDateOfOccurance().toString().equals(time)){
+
             disasterRecord.setDateOfOccurance(makeDate(time));
-        }
         service.updateDisasterRecord(disasterRecord);
     }
 
