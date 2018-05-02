@@ -24,3 +24,4 @@ nbdist/
 .nb-gradle/
 application-test.properties
 application.properties
+application-prod.properties
