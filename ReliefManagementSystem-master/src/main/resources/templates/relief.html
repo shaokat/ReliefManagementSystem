@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Relief</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+        href="../css/bootstrap.min.css" />
+  <link rel="stylesheet" th:href="@{/portfolio.css}"
+        href="../portfolio.css" />
+
+  <script type="text/javascript" th:src="@{/jquery/jquery.min.js}" />
+  <script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}" />
+  <script type="text/javascript" src="/static/angular.min.js" th:src="@{/angular.min.js}"></script>
+  <script type="text/javascript" src="/static/app.module.js" th:src="@{/app.module.js}"></script>
+  <script type="text/javascript" src="/static/area.controller.js" th:src="@{/area.controller.js}"></script>
+</head>
+
+<body ng-app="app" ng-controller="DistrictController as vm">
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+    </div>
+
+</nav>
+
+<!-- Page Content -->
+<form ng-submit="vm.insertReliefRecords()">
+<div class="container">
+
+  <!-- Page Heading -->
+  <h1 class="my-4">Page Heading
+    <small>Secondary Text</small>
+  </h1>
+
+  <div class="row">
+    <div class="col-lg-6 portfolio-item">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></img></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#">Project One</a>
+          </h4>
+
+          <label class="mr-sm-2">Organizaton</label>
+          <select class="form-control" ng-model="vm.relief.organization_id"
+                  ng-options="organization.nameAcronym for organization in vm.organizations track by organization.id">
+            <option value="">-- choose Organization --</option>
+          </select>
+          <label class="mr-sm-2">Relief Type</label>
+          <select class="form-control"  id="reliefType"  onchange="showhide()">
+            <option>select one</option>
+            <option>money</option>
+            <option>item</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 portfolio-item">
+      <div class="card h-100">
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#">Project Two</a>
+          </h4>
+          <table class="table">
+
+            <thead>
+            <tr>
+              <th>District</th>
+              <th style="width: 90px"></th>
+              <th style="width: 90px"></th>
+            </tr>
+
+            </thead>
+          </table>
+          <label class="mr-sm-2">Divison</label>
+              <select class="form-control"  ng-model="division"
+                      ng-options="division.name for division in vm.divisions track by division.id"
+                      ng-change="vm.getAllDistrict(division.id)">
+                <option value="">-- choose Division --</option>
+              </select>
+          <label class="mr-sm-2">District</label>
+              <select class="form-control" ng-model="district"
+                      ng-options="district.name for district in vm.districts track by district.id"
+                      ng-change="vm.getAllUpazilla(district.id)">
+                <option value="">-- choose Division first --</option>
+              </select>
+          <label class="mr-sm-2">Upazilla</label>
+              <select class="form-control"
+                      ng-model="upazilla" ng-options="up.name for up in vm.upazilla track by up.id"
+                      ng-change="vm.getUnionParisad(upazilla.id)">
+                <option value="">-- choose District first --</option>
+              </select>
+                <label class="mr-sm-2">Union Parisad</label>
+                <select class="form-control"
+                        ng-model="vm.relief.union_parisad_id" ng-options="union.name for union in vm.unionParisad track by union.id">
+                  <option value="">-- choose Upazilla first --</option>
+              </select>
+
+
+
+
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 portfolio-item">
+
+
+        <div id = "money">
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-4 col-form-label">Amount</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="amount" placeholder="amount in taka"/>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Recevied People</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="receivedPepole" placeholder="number of people received" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </div>
+        <div id = "item">
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-4 col-form-label">Item Amount</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="inputEmail3" placeholder="amount of items"/>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <button type="submit" class="btn btn-primary">submit</button>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- /.row -->
+
+<!-- Pagination -->
+
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">1</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">3</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+
+</form>
+</body>
+
+</html>
+
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+  </div>
+  <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script>
+    document.onreadystatechange = function () {
+        if (document.readyState == "complete") {
+            document.getElementById("money").style.display = 'none';
+            document.getElementById("item").style.display = 'none';
+        }
+    };
+
+
+    function showhide()
+    {
+        var reliefType = document.getElementById("reliefType").value;
+        var divMoney = document.getElementById("money");
+        var divItem = document.getElementById("item");
+
+        if (reliefType == "money") {
+            divItem .style.display = "none";
+
+            divMoney .style.display = "block";
+
+        }
+        else if(reliefType == "item") {
+            divMoney .style.display = "none";
+
+            divItem .style.display = "block";
+
+        }
+        else{
+            divMoney .style.display = "none";
+            divItem .style.display = "none";
+
+        }
+    }
+</script>
+
+
+
