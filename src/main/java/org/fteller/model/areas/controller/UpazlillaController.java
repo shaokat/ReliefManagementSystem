@@ -49,6 +49,10 @@ public class UpazlillaController {
         }
 
     }
+    @GetMapping(path = "/upazillas")
+    public List<Upazilla> getUpzillas(){
+        return upazillaService.getUpazillas();
+    }
     @GetMapping(path = "/upazilla/{id}")
     public Upazilla getUpazilla(@PathVariable int id){
         Upazilla upazilla = upazillaService.getUpazillaById(id);

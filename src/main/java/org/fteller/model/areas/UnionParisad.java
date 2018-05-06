@@ -31,7 +31,6 @@ public class UnionParisad {
 
     @ManyToOne(targetEntity = Upazilla.class)
     @JoinColumn(name = "upazilla_id")
-    @JsonIgnore
     private @Getter@Setter Upazilla upazilla;
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "place",cascade = CascadeType.ALL)
