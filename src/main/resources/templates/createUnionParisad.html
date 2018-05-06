@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Insert New Union Parisad</title>
+<head> </head>
+<body ng-app="">
+
+<div>
+    <form name="form" action="#" th:action="@{/unionParisad/create}" th:object="${unionParisad}"
+          method="post">
+        <label for="name">Union Parisad Name</label> <input type="text" id="name" placeholder="UnionParisad Name" required=""
+                                                       th:field="*{name}" />
+
+        <label for="type">Upazilla</label>
+        <select
+                th:field="*{upazilla}">
+            <option
+                    th:each="up : ${upazillas}"
+                    th:value="${up.id}" th:text="${up.name}">Divison
+            </option>
+        </select> <input type="submit" value="Create" />
+    </form>
+</div>
+
+</body>
+</html>
