@@ -15,4 +15,9 @@ public class DefaultController {
 }
 
 
+
+@GetMapping("/relief")
+public String reliefEntry(){
+    return "relief";
+}
 }
