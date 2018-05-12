@@ -19,7 +19,6 @@ public class ReliefType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private @Getter@Setter int id;
-    private @Getter@Setter String name;
     private @Getter@Setter String description;
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "type")
     private @Getter@Setter ReliefRecords itemForRecord;

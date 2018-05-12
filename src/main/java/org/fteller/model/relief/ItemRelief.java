@@ -14,5 +14,6 @@ import javax.persistence.Entity;
 @DiscriminatorValue("I")
 @ToString
 public class ItemRelief extends ReliefType {
+    private @Getter@Setter String name;
     private @Getter@Setter int amountInUnit;
 }

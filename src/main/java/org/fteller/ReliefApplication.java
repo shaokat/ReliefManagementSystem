@@ -82,16 +82,16 @@ public class ReliefApplication implements CommandLineRunner {
         System.out.println(rel);
     }
 
-    private void initializeDBWithrelieftype(){
-        ReliefType moneyRel = new MoneyRelief(30000,60);
-        moneyRel.setName("money");
-        moneyRel.setDescription("distributed among the cidr victims");
-        ReliefType itemRel = new ItemRelief(2000);
-        itemRel.setName("biscuits and fresh water");
-        itemRel.setDescription("distributed among flood victims");
-        reliefTypeRepository.save(itemRel);
-        reliefTypeRepository.save(moneyRel);
-    }
+//    private void initializeDBWithrelieftype(){
+//        ReliefType moneyRel = new MoneyRelief(30000,60);
+//        moneyRel.setName("money");
+//        moneyRel.setDescription("distributed among the cidr victims");
+//        ReliefType itemRel = new ItemRelief(2000);
+//        itemRel.setName("biscuits and fresh water");
+//        itemRel.setDescription("distributed among flood victims");
+//        reliefTypeRepository.save(itemRel);
+//        reliefTypeRepository.save(moneyRel);
+//    }
 
     private void initalizeDBwithArea() {
 	    //create union parisad

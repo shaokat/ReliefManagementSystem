@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.fteller.model.areas.District;
 import org.hibernate.annotations.Cascade;
@@ -15,6 +17,7 @@ import java.util.*;
 /**
  * Created by Abdullah Al Amin on 9/18/2017.
  */
+@ApiModel(description = "All details about Division.")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -27,6 +30,7 @@ public class Division {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private @Getter@Setter int id;
     @Size(min = 3, message = "Division Name should have atleast 3 character")
+    @ApiModelProperty(notes = "Name should be at least 3 characters")
     private @Getter@Setter String name;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "division",cascade = CascadeType.ALL)
