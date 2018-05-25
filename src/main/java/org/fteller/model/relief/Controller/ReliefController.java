@@ -1,10 +1,17 @@
 package org.fteller.model.relief.Controller;
 
-import org.fteller.model.relief.ReliefRecords;
+import org.fteller.model.areas.UnionParisad;
+import org.fteller.model.areas.repositories.UnionRepository;
+import org.fteller.model.disaster.Disaster;
+import org.fteller.model.disaster.repositories.DisasterRepository;
+import org.fteller.model.relief.*;
+import org.fteller.model.relief.repositories.OrganizationRepository;
+import org.fteller.model.relief.repositories.ReliefTypeRepository;
 import org.fteller.model.relief.service.ReliefService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -14,8 +21,38 @@ public class ReliefController {
     @Autowired
     ReliefService reliefService;
 
-    @PostMapping(path="/save")
-    public void saveReliefRecords( @RequestBody ReliefRecords reliefRecords){
+    @Autowired
+    UnionRepository unionRepository;
+    @Autowired
+    DisasterRepository disasterRepository;
+    @Autowired
+    OrganizationRepository organizationRepository;
+    @Autowired
+    ReliefTypeRepository reliefTypeRepository;
+
+
+    @PostMapping(path="/save/{uniId}/{distId}/{orgId}/{date}")
+    public void saveReliefRecords(@PathVariable int uniId,@PathVariable int distId,
+                                  @PathVariable int orgId,@PathVariable String date,
+                                  @RequestBody ReliefType moneyRelief){
+        UnionParisad unionParisad = unionRepository.getOne(uniId);
+        Disaster disaster = disasterRepository.getOne(distId);
+        Organization organization = organizationRepository.getOne(orgId);
+        ReliefRecords reliefRecords = new ReliefRecords();
+        if(moneyRelief instanceof MoneyRelief){
+            MoneyRelief moneyRelief1 = (MoneyRelief)moneyRelief;
+            reliefTypeRepository.save(moneyRelief1);
+        }
+        else {
+            ItemRelief itemRelief = (ItemRelief) moneyRelief;
+            reliefTypeRepository.save(itemRelief);
+        }
+
+        reliefRecords.setDisaster(disaster);
+        reliefRecords.setPlace(unionParisad);
+        reliefRecords.setOrganization(organization);
+        reliefRecords.setType(moneyRelief);
+       reliefRecords.setTimestamp(makeDate(date));
         reliefService.saveReliefRecord(reliefRecords);
     }
 
@@ -39,5 +76,10 @@ public class ReliefController {
     }
 
 
+    private LocalDate makeDate(@PathVariable String time)  {
+        LocalDate date = LocalDate.parse(time);
+        System.out.println(date.toString());
+        return date;
 
+    }
 }

@@ -27,7 +27,7 @@ public class ReliefRecords {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private @Getter@Setter int id;
-    private  @Setter LocalDateTime timestamp ;
+    private  @Setter@Getter LocalDate timestamp ;
 
     @ManyToOne(targetEntity = UnionParisad.class)
     @JoinColumn(name = "union_parisad_id")
@@ -48,9 +48,5 @@ public class ReliefRecords {
     @JsonIgnore
     @Getter@Setter private Disaster disaster;
 
-
-    public LocalDate getDate(){
-       return timestamp.toLocalDate();
-    }
 
 }
