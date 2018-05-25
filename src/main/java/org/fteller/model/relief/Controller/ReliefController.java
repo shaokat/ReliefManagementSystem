@@ -9,6 +9,7 @@ import org.fteller.model.relief.repositories.OrganizationRepository;
 import org.fteller.model.relief.repositories.ReliefTypeRepository;
 import org.fteller.model.relief.service.ReliefService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -32,27 +33,20 @@ public class ReliefController {
 
 
     @PostMapping(path="/save/{uniId}/{distId}/{orgId}/{date}")
-    public void saveReliefRecords(@PathVariable int uniId,@PathVariable int distId,
-                                  @PathVariable int orgId,@PathVariable String date,
-                                  @RequestBody ReliefType moneyRelief){
+    public void saveReliefRecords(@PathVariable int uniId,
+                                  @PathVariable int distId,
+                                  @PathVariable int orgId,
+                                  @PathVariable @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) LocalDate date,
+                                  @RequestBody ReliefType type){
         UnionParisad unionParisad = unionRepository.getOne(uniId);
         Disaster disaster = disasterRepository.getOne(distId);
         Organization organization = organizationRepository.getOne(orgId);
         ReliefRecords reliefRecords = new ReliefRecords();
-        if(moneyRelief instanceof MoneyRelief){
-            MoneyRelief moneyRelief1 = (MoneyRelief)moneyRelief;
-            reliefTypeRepository.save(moneyRelief1);
-        }
-        else {
-            ItemRelief itemRelief = (ItemRelief) moneyRelief;
-            reliefTypeRepository.save(itemRelief);
-        }
-
         reliefRecords.setDisaster(disaster);
         reliefRecords.setPlace(unionParisad);
         reliefRecords.setOrganization(organization);
-        reliefRecords.setType(moneyRelief);
-       reliefRecords.setTimestamp(makeDate(date));
+        reliefRecords.setType(type);
+        reliefRecords.setTimestamp(date);
         reliefService.saveReliefRecord(reliefRecords);
     }
 

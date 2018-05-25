@@ -1,5 +1,7 @@
 package org.fteller.model.relief;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,12 @@ import javax.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property="type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = MoneyRelief.class, name = "money"),
+        @JsonSubTypes.Type(value = ItemRelief.class, name = "item")
+})
+
 public class ReliefType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
