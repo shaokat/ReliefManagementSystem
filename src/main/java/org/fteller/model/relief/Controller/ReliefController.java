@@ -36,7 +36,7 @@ public class ReliefController {
     public void saveReliefRecords(@PathVariable int uniId,
                                   @PathVariable int distId,
                                   @PathVariable int orgId,
-                                  @PathVariable @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) LocalDate date,
+                                  @PathVariable String date,
                                   @RequestBody ReliefType type){
         UnionParisad unionParisad = unionRepository.getOne(uniId);
         Disaster disaster = disasterRepository.getOne(distId);
@@ -46,7 +46,7 @@ public class ReliefController {
         reliefRecords.setPlace(unionParisad);
         reliefRecords.setOrganization(organization);
         reliefRecords.setType(type);
-        reliefRecords.setTimestamp(date);
+        reliefRecords.setTimestamp(makeDate(date));
         reliefService.saveReliefRecord(reliefRecords);
     }
 

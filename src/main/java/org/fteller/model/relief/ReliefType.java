@@ -1,5 +1,6 @@
 package org.fteller.model.relief;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,8 @@ public class ReliefType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private @Getter@Setter int id;
     private @Getter@Setter String description;
+
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "type")
+    @JsonIgnore
     private @Getter@Setter ReliefRecords itemForRecord;
 }

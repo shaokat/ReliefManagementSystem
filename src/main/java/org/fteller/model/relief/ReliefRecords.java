@@ -31,21 +31,21 @@ public class ReliefRecords {
 
     @ManyToOne(targetEntity = UnionParisad.class)
     @JoinColumn(name = "union_parisad_id")
-    @JsonIgnore
+
     private @Getter@Setter UnionParisad place;
 
     @ManyToOne(targetEntity = Organization.class)
-
     @JoinColumn(name = "organization_id")
     private @Getter@Setter Organization organization;
 
     @OneToOne(cascade = CascadeType.ALL)
+
     @JoinColumn(name = "relief_type_id")
     private @Getter@Setter ReliefType type;
 
     @ManyToOne
     @JoinColumn(name = "disaster_id")
-    @JsonIgnore
+
     @Getter@Setter private Disaster disaster;
 
 
