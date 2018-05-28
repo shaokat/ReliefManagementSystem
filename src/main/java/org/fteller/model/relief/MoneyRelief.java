@@ -15,10 +15,6 @@ import javax.persistence.Entity;
 @ToString
 public class MoneyRelief extends ReliefType {
     private @Getter@Setter int amountInTaka;
-    private @Getter@Setter int noOfPeopleHelped;
 
-    public int averageMoneyDistributed(){
-        return this.amountInTaka/this.noOfPeopleHelped;
-    }
 
 }

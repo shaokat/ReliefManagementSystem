@@ -29,7 +29,7 @@ public class ReliefType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private @Getter@Setter int id;
     private @Getter@Setter String description;
-
+    private @Getter@Setter int noOfPeopleHelped;
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "type")
     @JsonIgnore
     private @Getter@Setter ReliefRecords itemForRecord;
