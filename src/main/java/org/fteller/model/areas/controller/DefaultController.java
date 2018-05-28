@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class DefaultController {
 
-//@GetMapping("")
-//    public String documenttion(){
-//    return "redirect:/swagger-ui.html";
-//}
+@GetMapping("")
+    public String documenttion(){
+    return "redirect:/swagger-ui.html";
+}
 
 
 
