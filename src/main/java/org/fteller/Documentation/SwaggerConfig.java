@@ -16,7 +16,7 @@ import java.util.Set;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    public static final Contact DEFAULT_CONTACT = new Contact("1.Abdullah Al Amin  2.Shaokat Hossain", "", "1. aaa006bd@gmail.com 2. shaokatcse@gmail.com");
+    public static final Contact DEFAULT_CONTACT = new Contact("1.Abdullah Al Amin  2.Shaokat Hossain", "", "aaa006bd@gmail.com,shaokatcse@gmail.com");
     public static final ApiInfo DEFAULT_API_INFO = new ApiInfo("Relief Management Api",
             "Api for managing relief information", "1.0", "urn:tos",
             DEFAULT_CONTACT, "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0");
